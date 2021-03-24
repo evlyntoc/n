@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> newsapp</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+    <!-- remove this line -->
+    <!-- <script src="index.js"> </script> -->
+
+    <!-- add jquery to the page, you need it to make ajax request -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <header> Latest News </header>
+    <!-- also remove this, let's use an embedded tag since you're always reloading -->
+    <!-- so your browser does not keep using cached version -->
+    <!-- <script src="index.js"> </script> -->
+
+    <script>
+        var url =
+            'https://newsapi.org/v2/everything?q=apple&from=2021-03-22&to=2021-03-22&sortBy=popularity&apiKey=9e3746ce27994176aa7608db7bbae723';
+
+        function getNews() {
+            $.ajax({
+                url: url,
+                success: function (result) {
+                    // this means the data return successfully
+
+                    //send it to the console to inspect it
+                    console.log(result);
+
+                    //or you can open the link on the browser, copy the entire content and use jsoneditoronline.com to inspect
+
+                    //do your foreach here and display the data on the page
+
+
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            getNews();//call getnews when the page has fully loaded
+        });
+    </script>
+</body>
+
+</html>
