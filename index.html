@@ -1,56 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title> newsapp</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Fetch API Sandbox</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <style>
+  body {background-color:#F0F0F0 ;}	
+  
+  	#firstname { 
+  background-color: yellow;
+}
 
-    <!-- remove this line -->
-    <!-- <script src="index.js"> </script> -->
+#b { 
+  background-color: #add8e6;
+    margin: 5px;
+   
+}
 
-    <!-- add jquery to the page, you need it to make ajax request -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+#c { 
+  background-color: #BEBEBE;
+  margin: 5px;
+}
+
+#a1{ 
+  background-color:#e6e6ff ;
+}
+#b1{ 
+  background-color:#ccffcc ;
+}
+#c1{ 
+  background-color:#ffe4b3 ;
+}
+
+  	</style>
 </head>
-
 <body>
-    <header> Latest News </header>
-    <!-- also remove this, let's use an embedded tag since you're always reloading -->
-    <!-- so your browser does not keep using cached version -->
-    <!-- <script src="index.js"> </script> -->
+  <div class="container">
+    <h1 class="display-4 mb-4">TOC NEWS</h1>
+    <div class="d-flex">
+      <button class="btn btn-primary mr-4" id="getText">light mode</button>
+      <button class="btn btn-success mr-4" id="getUsers">Drac mode</button>
+      <button class="btn btn-warning mr-4" id="getPosts">Dark mode</button>
+    </div>
+    <hr>
+    <div id="output"></div>
+    <form id="addPost">
+      <div class="form-group">
+    <h1> CLICK ON THE BUTTON ABOVE FOR YOUR FAVORITE NEWS VIEW MODE</h1>
+  </div>
 
-    <script>
-        var url =
-            'https://newsapi.org/v2/everything?q=apple&from=2021-03-22&to=2021-03-22&sortBy=popularity&apiKey=9e3746ce27994176aa7608db7bbae723';
-
-        function getNews() {
-            $.ajax({
-                url: url,
-                success: function (result) {
-                    // this means the data return successfully
-
-                    //send it to the console to inspect it
-                    console.log(result);
-
-                    //or you can open the link on the browser, copy the entire content and use jsoneditoronline.com to inspect
-
-                    //do your foreach here and display the data on the page
-
-
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            });
-        }
-
-        $(document).ready(function () {
-            getNews();//call getnews when the page has fully loaded
+  <script>
+    document.getElementById('getText').addEventListener('click', getText);
+    document.getElementById('getUsers').addEventListener('click', getUsers);
+    document.getElementById('getPosts').addEventListener('click', getPosts);
+    
+function getText(){
+      fetch('http://api.mediastack.com/v1/news?access_key=b6b3b32035afb44bbf3255b88a13b9fa')
+      .then((res) => res.json())
+      .then((json) => {
+        let output = '<h2 class="mb-4">Posts</h2>';
+        json.data.forEach(function(post){
+          output += `
+            <div class="card card-body mb-3"   id="a">
+              <h3>${post.title}</h3>
+              <p>${post.description}</p>
+              <p> <button type="button" id="a1"> <a href=" ${post.url}" >READ MORE>>></a></button></p>
+            </div>
+          `;
         });
-    </script>
-</body>
+        document.getElementById('output').innerHTML = output;
+      })
+    }
 
+function getUsers(){
+      fetch('http://api.mediastack.com/v1/news?access_key=b6b3b32035afb44bbf3255b88a13b9fa')
+      .then((res) => res.json())
+      .then((json) => {
+        let output = '<h2 class="mb-4">Posts</h2>';
+        json.data.forEach(function(post){
+          output += `
+            <div class="card card-body mb-3"  id="b">
+              <h3>${post.title}</h3>
+              <p>${post.description}</p>
+              <p> <button type="button" id="b1"> <a href=" ${post.url}" >READ MORE>>></a></button></p>
+            </div>
+          `;
+        });
+        document.getElementById('output').innerHTML = output;
+      })
+    }
+
+ 
+    function getPosts(){
+      fetch('http://api.mediastack.com/v1/news?access_key=b6b3b32035afb44bbf3255b88a13b9fa')
+      .then((res) => res.json())
+      .then((json) => {
+        let output = '<h2 class="mb-4">Posts</h2>';
+        json.data.forEach(function(post){
+          output += `
+            <div class="card card-body mb-3"  id="c" ; >
+              <h3>${post.title}</h3>
+              <p>${post.description}</p>
+               <p> <button type="button" id="c1"> <a href=" ${post.url}" >READ MORE>>></a></button></p>
+            </div>
+          `;
+        });
+        document.getElementById('output').innerHTML = output;
+      })
+    }
+
+    
+  </script>
+</body>
 </html>
